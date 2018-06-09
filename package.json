@@ -1,0 +1,24 @@
+{
+  "name": "web-push",
+  "version": "1.0.0",
+  "description": "The web push service. Include the server side and the client side.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dcwml/web-push.git"
+  },
+  "keywords": [
+    "web",
+    "push",
+    "node"
+  ],
+  "author": "dcwml",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dcwml/web-push/issues"
+  },
+  "homepage": "https://github.com/dcwml/web-push#readme"
+}

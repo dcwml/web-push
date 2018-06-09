@@ -2,20 +2,20 @@
 
 ## Introduce
 
-This is a project that provides web push service. The server and the client source code will be both included.
-It is now developing and testing. It is not stable.
-It is for study now. Do not use in business projects.
-MIT lisence.
+- This is a project that provides web push service. The server and the client source code will be both included.
+- It is now developing and testing. It is not stable.
+- It is for study now. Do not use in business projects.
+- MIT lisence.
 
 ## Running environment
 
 ### server
 
-node js. Develope at v6.10.0 or higher. You may test the lower versions.
+Node js. Develope at v6.10.0 or higher. You may test the lower versions. The lib 'http' is the main lib. ES6 is required.
 
 ### client
 
-Browers that supports XMLHttpRequest or Microsoft.XMLHTTP.
+Browers that support XMLHttpRequest or Microsoft.XMLHTTP.
 
 ## How
 
