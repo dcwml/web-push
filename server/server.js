@@ -16,7 +16,7 @@ let writeResponse = (response, content) => {
   response.writeHead(200, {
     'Content-Type': 'text/plain'
   })
-  console.log('RESPONSE: ' + (content || ''))
+  // console.log('RESPONSE: ' + (content || ''))
   response.write(content || '')
   response.end()
 }
@@ -99,7 +99,7 @@ let handleRequest = req => {
   res.setHeader('Access-Control-Allow-Methods', headers)
 
   if (req.method === 'OPTIONS') {
-    console.log('OPTIONS')
+    // console.log('OPTIONS')
     writeResponse(res, 'cors')
   } else if (req.method === 'POST' && req.url === '/service/push') {
     let topic = req.body.topic || req.query.topic
