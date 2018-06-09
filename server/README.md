@@ -2,7 +2,7 @@
 
 ## server.js
 
-The server side for one server mode.
+The server side for single server mode.
 
 ## server.master.js
 
