@@ -12,6 +12,17 @@ const PORT = 1234
 
 // ================================ common methods ================================
 
+let getUid = () => {
+  let now = Date.now()
+  let len = 4
+  let num = Math.pow(10, len)
+  let rnd = Math.floor(Math.random() * num)
+  while (rnd.length < len) {
+    rnd = Math.floor(Math.random() * num)
+  }
+  return '' + now + rnd
+}
+
 let writeResponse = (response, content) => {
   response.writeHead(200, {
     'Content-Type': 'text/plain'
@@ -27,27 +38,49 @@ let pushService = {
   add (topic, res) {
     // console.log('ADD ' + topic)
     if (!pushService.clients[topic]) {
-      pushService.clients[topic] = []
+      pushService.clients[topic] = {}
     }
-    pushService.clients[topic].push({
+    let id = getUid()
+    let timeoutFn = () => {
+      let item = pushService.clients[topic][id]
+      if (!item) {
+        return
+      }
+      if (item.res.headersSent) {
+        return
+      }
+      writeResponse(item.res, '')
+      delete pushService.clients[topic][id]
+      // console.log(Object.keys(pushService.clients[topic]))
+    }
+    let timeoutId = setTimeout(timeoutFn, pushService.timeout)
+    pushService.clients[topic][id] = {
       time: Date.now(),
-      res
-    })
+      res,
+      id,
+      timeoutFn,
+      timeoutId
+    }
   },
   pub (topic, msg) {
     // console.log('PUB ' + topic)
     if (!pushService.clients[topic]) {
       return
     }
-    pushService.clients[topic].forEach(item => {
+    let topicObj = pushService.clients[topic]
+    let keys = Object.keys(topicObj)
+    keys.forEach(key => {
+      let item = topicObj[key]
+      let id = item.id
       if (item.res.headersSent) {
         return
       }
       if (Date.now() - item.time >= pushService.timeout) {
         return
       }
-      // item.res.send(msg)
       writeResponse(item.res, msg)
+      delete pushService.clients[topic][id]
+      // console.log(Object.keys(pushService.clients[topic]))
     })
   },
   start () {
@@ -76,7 +109,7 @@ let pushService = {
   }
 }
 
-pushService.start()
+// pushService.start()
 
 let handleRequest = req => {
   // init
