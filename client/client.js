@@ -14,8 +14,11 @@ var ajax = function (url, data, method, done, fail, always) {
   xhr.open(method, url)
   // xhr.setRequestHeader()
   xhr.onerror = function (err) {
-    fail && fail(err)
-    always && always()
+    // xhr.abort()
+    // console.log('onerror')
+    // console.log(err)
+    // fail && fail(err)
+    // always && always()
   }
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4) {
@@ -28,6 +31,7 @@ var ajax = function (url, data, method, done, fail, always) {
       }
     }
   }
+  xhr.timeout = 30000
   if (method.toUpperCase() === 'POST') {
     xhr.send(data)
   } else {
@@ -36,6 +40,7 @@ var ajax = function (url, data, method, done, fail, always) {
 }
 
 var pushClient = {
+  isPosting: false,
   list: [],
   url: '',
   callback: function () {}
@@ -48,6 +53,10 @@ pushClient.init = function (cnf) {
 
 pushClient.start = function () {
   var fn = () => {
+    if (pushClient.isPosting) {
+      return
+    }
+    pushClient.isPosting = true
     ajax(pushClient.url, '', 'POST', function (responseText) {
       // done
       pushClient.callback(responseText)
@@ -55,6 +64,7 @@ pushClient.start = function () {
       // fail
     }, function () {
       // always
+      pushClient.isPosting = false
       fn()
     })
   }
