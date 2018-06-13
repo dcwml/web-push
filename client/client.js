@@ -52,7 +52,7 @@ pushClient.init = function (cnf) {
 }
 
 pushClient.start = function () {
-  var fn = () => {
+  var fn = function () {
     if (pushClient.isPosting) {
       return
     }
@@ -73,8 +73,8 @@ pushClient.start = function () {
 
 pushClient.sub = function (topic, fn) {
   pushClient.list.push({
-    topic,
-    fn
+    topic: topic,
+    fn: fn
   })
 }
 
