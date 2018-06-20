@@ -4,7 +4,8 @@
   "description": "The web push service. Include the server side and the client side.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "eslintinit": "eslint --init"
   },
   "repository": {
     "type": "git",
@@ -20,5 +21,14 @@
   "bugs": {
     "url": "https://github.com/dcwml/web-push/issues"
   },
-  "homepage": "https://github.com/dcwml/web-push#readme"
+  "homepage": "https://github.com/dcwml/web-push#readme",
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "jshint": "^2.9.5"
+  }
 }
